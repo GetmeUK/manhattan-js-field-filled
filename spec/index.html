@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>manhattan-character-count</title>
+    </head>
+    <body>
+        <form>
+            <div>
+                <input type="text" name="field1">
+            </div>
+            <div>
+                <input type="password" name="password">
+            </div>
+            <div>
+                <textarea name="field3"></textarea>
+            </div>
+            <div>
+                <select name="field4">
+                    <option value="">Select...</option>
+                    <option value="Value">Value</option>
+                </select>
+            </div>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
+        <script src="../node_modules/manhattan-essentials/umd/index.js"></script>
+        <script src="../umd/index.js"></script>
+        <script>
+
+            const $ = window['manhattan-essentials']
+            const {addFilled} = window['manhattan-field-filled']
+            const {removeFilled} = window['manhattan-field-filled']
+
+            for(let field of $.many('input, select, textarea')) {
+                $.listen(
+                    field,
+                    {
+                        'filled': function (ev) {
+                            this.style.borderColor = 'green'
+                        },
+                        'emptied': function (ev) {
+                            this.style.borderColor = 'red'
+                        }
+                    }
+                )
+            }
+
+            addFilled()
+
+        </script>
+    </body>
+</html>

@@ -7,7 +7,7 @@ import * as $ from 'manhattan-essentials'
  * Handle the contents of a field changing
  */
 function onChange(ev) {
-    const field = ev.target
+    const field = ev.currentTarget
     if (field.value === '') {
         $.dispatch(field, 'emptied')
     } else {
@@ -19,10 +19,11 @@ function onChange(ev) {
  * Handle the autofill events on Chrome (captured via animations)
  */
 function onAutofill(ev) {
-    const field = ev.target
-    if (ev.animationName === 'onAutofillStart') {
+    const field = ev.currentTarget
+    console.log(field)
+    if (ev.animationName === 'mhFillStart') {
         $.dispatch(field, 'filled')
-    } else if (ev.animationName === 'onAutofillCancel') {
+    } else if (ev.animationName === 'mhFillCancel') {
         if (field.value === '' || field.type.toLowerCase() === 'password') {
             $.dispatch(field, 'emptied')
         } else {
@@ -98,7 +99,7 @@ export function addFilled(selector='input, select, textarea') {
         )
 
         // Set the initial state of the field
-        onChange.call(field, {})
+        onChange({'currentTarget': field})
     }
 }
 
