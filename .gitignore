@@ -1,0 +1,10 @@
+# Directories
+.cache
+.nyc_output
+coverage
+node_modules
+umd
+
+# Files
+npm-debug.log
+*~
