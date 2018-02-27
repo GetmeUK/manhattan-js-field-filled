@@ -1,7 +1,7 @@
 {
   "name": "manhattan-field-filled",
   "version": "1.0.0",
-  "description": "Add a 'filled' event to text inputs, selects and textareas dispatched whenever the field is filled or emptied.",
+  "description": "Dispatch a 'filled' and 'empty' event against text inputs, selects and textareas whenever the field is filled or emptied.",
   "engines": {
     "node": ">=8.9.4"
   },
