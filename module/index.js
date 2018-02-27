@@ -9,7 +9,7 @@ import * as $ from 'manhattan-essentials'
 function onChange(ev) {
     const field = ev.currentTarget
     if (field.value === '') {
-        $.dispatch(field, 'emptied')
+        $.dispatch(field, 'empty')
     } else {
         $.dispatch(field, 'filled')
     }
@@ -20,12 +20,11 @@ function onChange(ev) {
  */
 function onAutofill(ev) {
     const field = ev.currentTarget
-    console.log(field)
     if (ev.animationName === 'mhFillStart') {
         $.dispatch(field, 'filled')
     } else if (ev.animationName === 'mhFillCancel') {
         if (field.value === '' || field.type.toLowerCase() === 'password') {
-            $.dispatch(field, 'emptied')
+            $.dispatch(field, 'empty')
         } else {
             $.dispatch(field, 'filled')
         }
@@ -46,7 +45,7 @@ export function addFilled(selector='input, select, textarea') {
     if ($.cssSelectorSupported(':-webkit-autofill')) {
         // Detecting if an input is populated in Chrome/Webkit is tricky, to
         // cater for autofill we have to add animations that are triggered by
-        // the :-webkit-autofill CSS puesdo class and listen for the animation
+        // the :-webkit-autofill CSS pseudo class and listen for the animation
         // start/cancel events.
 
         // Check to see if we've already added the styles to capture autofill,
