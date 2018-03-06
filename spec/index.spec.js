@@ -52,7 +52,7 @@ describe('addFilled', () => {
     it('should fire an empty event against an empty input on setup', () => {
         const onEmpty = sinon.spy()
         $.listen(inputA, {'empty': onEmpty})
-        addFilled('input')
+        addFilled()
         onEmpty.should.have.been.called
     })
 
@@ -107,8 +107,13 @@ describe('addFilled', () => {
             $.cssSelectorSupported = cssSelectorSupported
         })
 
-        it('should fire a filled event when an input is autofilled', () => {
+        it('should only add animation styles if they are not present', () => {
+            addFilled('input')
+            addFilled('input')
+            $.many('[data-mh-field-filled-styles]').length.should.equal(1)
+        })
 
+        it('should fire a filled event when an input is autofilled', () => {
             addFilled('input')
 
             const onFilled = sinon.spy()
@@ -144,8 +149,8 @@ describe('addFilled', () => {
             onEmpty.should.have.been.called
         })
 
-        it('should fire an filled event when an autofill is cancelled '
-            + 'against an input leaving if filled', () => {
+        it('should fire a filled event when an autofill is cancelled '
+            + 'against an input leaving it filled', () => {
 
             addFilled('input')
 
@@ -161,6 +166,31 @@ describe('addFilled', () => {
             )
 
             onFilled.should.have.been.called
+        })
+
+        it('should ignore other animation names', () => {
+
+            addFilled('input')
+
+            const onFilled = sinon.spy()
+            const onEmpty = sinon.spy()
+            $.listen(
+                inputA,
+                {
+                    'empty': onEmpty,
+                    'filled': onFilled
+                }
+            )
+
+            // Simulate autofill
+            $.dispatch(
+                inputA,
+                'animationstart',
+                {'animationName': 'somethingElse'}
+            )
+
+            onEmpty.should.not.have.been.called
+            onFilled.should.not.have.been.called
         })
     })
 })

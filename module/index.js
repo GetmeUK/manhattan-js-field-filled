@@ -50,8 +50,7 @@ export function addFilled(selector='input, select, textarea') {
 
         // Check to see if we've already added the styles to capture autofill,
         // if not add them.
-        if (!$.one('data-mh-field-filled-styles')) {
-
+        if (!$.one('[data-mh-field-filled-styles]')) {
             // Insert the stylesheet
             const style = $.create(
                 'style',
@@ -115,5 +114,10 @@ export function removeFilled(selector='input, select, textarea') {
                 'input': onChange
             }
         )
+    }
+
+    if ($.one('[data-mh-field-filled-styles]')) {
+        const animationStyles = $.one('[data-mh-field-filled-styles]')
+        animationStyles.parentNode.removeChild(animationStyles)
     }
 }
