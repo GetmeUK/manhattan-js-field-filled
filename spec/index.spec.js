@@ -97,8 +97,9 @@ describe('addFilled', () => {
 
         beforeEach(() => {
             // Emulate support for ':-webkit-autofill' pseudo CSS state
+            // eslint-disable-next-line
             cssSelectorSupported = $.cssSelectorSupported
-            $.cssSelectorSupported = function (selector) {
+            $.cssSelectorSupported = (selector) => {
                 return true
             }
         })
