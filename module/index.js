@@ -23,7 +23,7 @@ function onAutofill(ev) {
     if (ev.animationName === 'mhFillStart') {
         $.dispatch(field, 'filled')
     } else if (ev.animationName === 'mhFillCancel') {
-        if (field.value === '' || field.type.toLowerCase() === 'password') {
+        if (field.value === '') {
             $.dispatch(field, 'empty')
         } else {
             $.dispatch(field, 'filled')
